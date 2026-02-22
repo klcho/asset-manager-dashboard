@@ -31,16 +31,16 @@
 ## 3. 세부 구현 마일스톤 (Milestones)
 
 ### Milestone 1: 프론트엔드 뼈대 및 디자인 시스템 (UI/UX Foundation)
-- [ ] Tailwind CSS 세팅 적용
-- [ ] 디자이너가 확정한 고밀도(High-Density) 라이트 모드 컬러 및 레이아웃 토큰 설정
-- [ ] 공용 레이아웃 구성 (좌측 사이드바 필터, 메인 데이터 패널)
-- [ ] 기본 화면 라우팅 구축 (Home, Asset Registration)
+- [x] Tailwind CSS 세팅 적용
+- [x] 디자이너가 확정한 고밀도(High-Density) 라이트 모드 컬러 및 레이아웃 토큰 설정
+- [x] 공용 레이아웃 구성 (좌측 사이드바 필터, 메인 데이터 패널)
+- [x] 기본 화면 라우팅 구축 (Home, Asset Registration)
 
 ### Milestone 2: 대시보드 메인 화면 구현 (Mock 데이터 기반)
-- [ ] 최상단 **요약 카드 (Summary Cards)**: 기간별 전환 Toggle 기능 및 단위(₩, %) 애니메이션
-- [ ] 메인 **차트 컴포넌트 (Charts)**: Recharts 라이브러리를 활용한 시계열 변동 차트 및 자산 비중 도넛 차트
-- [ ] 리스트형 **자산 테이블 (Asset Table)**: 고밀도 그리드의 자산/거래 내역 표기
-- [ ] (단기 목표) 정적 Mock 데이터를 주입하여 UI가 시안과 동일하게 떨어지는지 시각적 완성도 점검
+- [x] 최상단 **요약 카드 (Summary Cards)**: 기간별 전환 Toggle 기능 및 단위(₩, %) 애니메이션
+- [x] 메인 **차트 컴포넌트 (Charts)**: Recharts 라이브러리를 활용한 시계열 변동 차트 및 자산 비중 도넛 차트
+- [x] 리스트형 **자산 테이블 (Asset Table)**: 고밀도 그리드의 자산/거래 내역 표기
+- [x] (단기 목표) 정적 Mock 데이터를 주입하여 UI가 시안과 동일하게 떨어지는지 시각적 완성도 점검
 
 ### Milestone 3: 백엔드 API 및 AI 연동 로직
 - [ ] FastAPI 서버 기본 셋업 및 프론트엔드 통신을 위한 CORS 구성

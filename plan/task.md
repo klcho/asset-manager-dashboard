@@ -24,7 +24,8 @@
 - [x] Backend: `uv` 스캐폴딩 및 `FastAPI` + `Supabase` 의존성 설치 구동 완료
 - [x] Frontend: `Vite + React (TypeScript)` 스캐폴딩 완료
 - [ ] Backend: DB 세팅 및 Gemini API 파싱 모듈 연동
-- [ ] Frontend: 자산 대시보드 뷰 구성
+- [x] Frontend: 자산 대시보드 뷰 구성 (Milestone 1 레이아웃 완료)
+- [x] Frontend: 메인 차트 및 요약 카드 컴포넌트 고도화 (Milestone 2 완료)
 - [ ] Frontend & Backend: API 붙이기 및 이미지 업로드-파싱-수정 폼 구현
 
 ## 5. ⚙️ DevOps & QE 전문가 (Testing & Delivery)
