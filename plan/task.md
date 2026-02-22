@@ -19,6 +19,7 @@
 - [x] 대시보드 컴포넌트(차트, 요약 카드) UI 구조 설계서 도출 (프론트 개발자 인계)
 
 ## 4. 💻 백엔드 & 프론트엔드 개발자 (Implementation)
+- [x] **개발 계획 수립**: `development_plan.md`를 통한 구현 마일스톤 및 구조 명세 확립
 - [x] **버전 관리**: Git 레포지토리 초기화 (`git init`) 및 GitHub 원격 레포 연결 (로컬 초기화 완료)
 - [x] Backend: `uv` 스캐폴딩 및 `FastAPI` + `Supabase` 의존성 설치 구동 완료
 - [x] Frontend: `Vite + React (TypeScript)` 스캐폴딩 완료
