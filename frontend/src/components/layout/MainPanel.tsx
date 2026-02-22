@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+
 // Mock Data for Area Chart
 const mockChartData = [
     { date: '01.15', value: 241000000 },
@@ -20,38 +22,42 @@ export default function MainPanel() {
     return (
         <main className="flex-1 flex flex-col h-screen overflow-y-auto p-6 bg-slate-50 gap-6">
             {/* Header / Top Summary */}
-            <header className="flex justify-between items-center bg-white p-5 rounded-lg border border-border shadow-sm">
-                <div>
-                    <h2 className="text-sm font-medium text-muted-foreground mb-1">총 자산 평가액</h2>
-                    <div className="flex items-baseline gap-3">
-                        <h1 className="text-4xl font-bold tracking-tight">₩ 245,600,000</h1>
-                        <span className="text-success text-sm font-semibold bg-success/10 px-2 py-0.5 rounded flex items-center gap-1 transition-all">
-                            + ₩ 1,250,000 (0.5%)
-                        </span>
+            <Card className="shadow-sm border-border bg-white overflow-hidden">
+                <div className="flex justify-between items-center p-6">
+                    <div>
+                        <h2 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase mb-1">총 자산 평가액</h2>
+                        <div className="flex items-end gap-3">
+                            <h1 className="text-4xl font-extrabold tracking-tight text-foreground">₩ 245,600,000</h1>
+                            <span className="text-success text-sm font-bold bg-success/10 px-2.5 py-1 rounded-md flex items-center gap-1 transition-all">
+                                + ₩ 1,250,000 (0.5%)
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Period Toggle Group */}
+                    <div className="flex bg-slate-100 p-1.5 rounded-lg text-xs font-semibold border border-border shadow-inner">
+                        {periods.map((period) => (
+                            <button
+                                key={period}
+                                onClick={() => setActivePeriod(period)}
+                                className={`px-3 py-1.5 rounded-md transition-all duration-200 ${activePeriod === period ? 'bg-white shadow text-primary' : 'text-slate-500 hover:text-slate-800'}`}
+                            >
+                                {period}
+                            </button>
+                        ))}
                     </div>
                 </div>
-
-                {/* Period Toggle Group */}
-                <div className="flex bg-muted p-1 rounded-md text-xs font-medium">
-                    {periods.map((period) => (
-                        <button
-                            key={period}
-                            onClick={() => setActivePeriod(period)}
-                            className={`px-3 py-1.5 rounded transition-all ${activePeriod === period ? 'bg-white shadow-sm text-primary font-bold' : 'text-muted-foreground hover:text-foreground'}`}
-                        >
-                            {period}
-                        </button>
-                    ))}
-                </div>
-            </header>
+            </Card>
 
             {/* Dense Content Area: Chart + Asset Table */}
             <div className="grid grid-cols-1 gap-6 flex-1">
                 {/* Main Chart */}
-                <div className="bg-white rounded-lg border border-border flex flex-col p-5 shadow-sm min-h-[300px]">
-                    <h3 className="text-sm font-semibold mb-4 text-foreground">포트폴리오 성장 추이 ({activePeriod})</h3>
-                    <div className="flex-1 w-full h-full min-h-[250px]">
-                        <ResponsiveContainer width="100%" height="100%">
+                <Card className="flex flex-col min-h-[300px] shadow-sm">
+                    <CardHeader className="pb-2 border-b border-border/50">
+                        <CardTitle className="text-sm text-foreground">포트폴리오 성장 추이 ({activePeriod})</CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex-1 pt-4">
+                        <ResponsiveContainer width="100%" height="100%" minHeight={250}>
                             <AreaChart data={mockChartData} margin={{ top: 10, right: 0, left: 10, bottom: 0 }}>
                                 <defs>
                                     <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
@@ -90,56 +96,56 @@ export default function MainPanel() {
                                 />
                             </AreaChart>
                         </ResponsiveContainer>
-                    </div>
-                </div>
+                    </CardContent>
+                </Card>
 
                 {/* Detailed Dense Table */}
-                <div className="bg-white rounded-lg border border-border flex flex-col p-5 shadow-sm flex-1">
-                    <div className="flex justify-between items-center mb-4">
-                        <h3 className="text-sm font-semibold text-foreground">보유 종목 상세 명세</h3>
-                        <input type="text" placeholder="종목 검색..." className="text-xs border border-border rounded px-3 py-1.5 w-48 focus:outline-none focus:ring-1 focus:ring-primary/30" />
-                    </div>
+                <Card className="flex flex-col shadow-sm flex-1">
+                    <CardHeader className="flex flex-row justify-between items-center pb-2 border-b border-border/50">
+                        <CardTitle className="text-sm">보유 종목 상세 명세</CardTitle>
+                        <input type="text" placeholder="종목 검색..." className="text-xs border border-input rounded-md px-3 py-1.5 w-56 focus:outline-none focus:ring-1 focus:ring-primary/50 transition-shadow" />
+                    </CardHeader>
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse text-sm">
+                        <table className="w-full text-left border-collapse text-sm whitespace-nowrap">
                             <thead>
-                                <tr className="border-b border-border text-muted-foreground">
-                                    <th className="py-2 px-3 font-medium">티커/종목명</th>
-                                    <th className="py-2 px-3 font-medium text-right">수량</th>
-                                    <th className="py-2 px-3 font-medium text-right">평균단가</th>
-                                    <th className="py-2 px-3 font-medium text-right">현재가</th>
-                                    <th className="py-2 px-3 font-medium text-right">평가금액</th>
-                                    <th className="py-2 px-3 font-medium text-right">수익률</th>
+                                <tr className="border-b border-border bg-slate-50/50 text-slate-500 uppercase text-xs tracking-wider">
+                                    <th className="py-3 px-4 font-semibold">티커/종목명</th>
+                                    <th className="py-3 px-4 font-semibold text-right">수량</th>
+                                    <th className="py-3 px-4 font-semibold text-right">평균단가</th>
+                                    <th className="py-3 px-4 font-semibold text-right">현재가</th>
+                                    <th className="py-3 px-4 font-semibold text-right">평가금액</th>
+                                    <th className="py-3 px-4 font-semibold text-right">수익률</th>
                                 </tr>
                             </thead>
-                            <tbody className="text-foreground">
-                                <tr className="border-b border-border hover:bg-muted/50 transition-colors">
-                                    <td className="py-2 px-3"><div className="font-medium">삼성전자</div><div className="text-xxs text-muted-foreground text-opacity-80">005930.KS</div></td>
-                                    <td className="py-2 px-3 text-right">1,200</td>
-                                    <td className="py-2 px-3 text-right">₩ 72,500</td>
-                                    <td className="py-2 px-3 text-right">₩ 74,300</td>
-                                    <td className="py-2 px-3 text-right font-medium">₩ 89,160,000</td>
-                                    <td className="py-2 px-3 text-right text-success font-semibold">+ 2.48%</td>
+                            <tbody className="text-foreground align-middle">
+                                <tr className="border-b border-border hover:bg-slate-50/80 transition-colors">
+                                    <td className="py-3 px-4 flex flex-col gap-0.5"><div className="font-semibold text-sm">삼성전자</div><div className="text-xxs text-slate-400">005930.KS</div></td>
+                                    <td className="py-3 px-4 text-right font-medium">1,200</td>
+                                    <td className="py-3 px-4 text-right">₩ 72,500</td>
+                                    <td className="py-3 px-4 text-right">₩ 74,300</td>
+                                    <td className="py-3 px-4 text-right font-bold">₩ 89,160,000</td>
+                                    <td className="py-3 px-4 text-right text-success font-bold">+ 2.48%</td>
                                 </tr>
-                                <tr className="border-b border-border hover:bg-muted/50 transition-colors">
-                                    <td className="py-2 px-3"><div className="font-medium">Apple Inc.</div><div className="text-xxs text-muted-foreground text-opacity-80">AAPL</div></td>
-                                    <td className="py-2 px-3 text-right">150</td>
-                                    <td className="py-2 px-3 text-right">$ 165.20</td>
-                                    <td className="py-2 px-3 text-right">$ 180.55</td>
-                                    <td className="py-2 px-3 text-right font-medium">₩ 36,561,375</td>
-                                    <td className="py-2 px-3 text-right text-success font-semibold">+ 9.29%</td>
+                                <tr className="border-b border-border hover:bg-slate-50/80 transition-colors">
+                                    <td className="py-3 px-4 flex flex-col gap-0.5"><div className="font-semibold text-sm">Apple Inc.</div><div className="text-xxs text-slate-400">AAPL</div></td>
+                                    <td className="py-3 px-4 text-right font-medium">150</td>
+                                    <td className="py-3 px-4 text-right">$ 165.20</td>
+                                    <td className="py-3 px-4 text-right">$ 180.55</td>
+                                    <td className="py-3 px-4 text-right font-bold">₩ 36,561,375</td>
+                                    <td className="py-3 px-4 text-right text-success font-bold">+ 9.29%</td>
                                 </tr>
-                                <tr className="hover:bg-muted/50 transition-colors">
-                                    <td className="py-2 px-3"><div className="font-medium">Bitcoin</div><div className="text-xxs text-muted-foreground text-opacity-80">BTC</div></td>
-                                    <td className="py-2 px-3 text-right">0.5</td>
-                                    <td className="py-2 px-3 text-right">₩ 95,000,000</td>
-                                    <td className="py-2 px-3 text-right">₩ 92,100,000</td>
-                                    <td className="py-2 px-3 text-right font-medium">₩ 46,050,000</td>
-                                    <td className="py-2 px-3 text-right text-destructive font-semibold">- 3.05%</td>
+                                <tr className="hover:bg-slate-50/80 transition-colors border-b border-border">
+                                    <td className="py-3 px-4 flex flex-col gap-0.5"><div className="font-semibold text-sm">Bitcoin</div><div className="text-xxs text-slate-400">BTC</div></td>
+                                    <td className="py-3 px-4 text-right font-medium">0.5</td>
+                                    <td className="py-3 px-4 text-right">₩ 95,000,000</td>
+                                    <td className="py-3 px-4 text-right">₩ 92,100,000</td>
+                                    <td className="py-3 px-4 text-right font-bold">₩ 46,050,000</td>
+                                    <td className="py-3 px-4 text-right text-destructive font-bold">- 3.05%</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </Card>
             </div>
         </main>
     );

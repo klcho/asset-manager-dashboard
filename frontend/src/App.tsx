@@ -3,14 +3,12 @@ import MainPanel from './components/layout/MainPanel';
 import RightPanel from './components/layout/RightPanel';
 import './index.css';
 
-function App() {
+export default function App() {
   return (
-    <div className="flex w-full h-screen bg-slate-50 text-foreground overflow-hidden font-sans">
+    <div className="flex h-screen bg-muted/30 text-foreground overflow-hidden font-sans selection:bg-primary/20">
       <Sidebar />
       <MainPanel />
       <RightPanel />
     </div>
   );
 }
-
-export default App;

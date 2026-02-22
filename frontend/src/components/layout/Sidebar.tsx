@@ -2,53 +2,71 @@ import { LayoutDashboard, PieChart, Wallet, Settings, TrendingUp } from 'lucide-
 
 export default function Sidebar() {
     return (
-        <aside className="w-[18%] min-w-[220px] bg-white border-r border-border h-screen p-4 flex flex-col gap-6">
+        <aside className="w-64 bg-white border-r border-border h-screen flex flex-col shadow-sm z-10">
             {/* Logo Area */}
-            <div className="flex items-center gap-2 font-bold text-xl tracking-tight text-primary">
-                <TrendingUp className="w-6 h-6 text-success" />
-                <span>AssetMap Pro</span>
+            <div className="p-6 border-b border-border/50 flex items-center gap-3">
+                <div className="bg-primary text-primary-foreground p-2 rounded-lg shadow-sm">
+                    <TrendingUp size={20} />
+                </div>
+                <span className="font-extrabold text-lg tracking-tight">AssetMap Pro</span>
             </div>
 
             {/* Navigation */}
-            <nav className="flex flex-col gap-1 flex-1">
-                <NavItem icon={<LayoutDashboard size={18} />} label="대시보드 홈" active />
-                <NavItem icon={<PieChart size={18} />} label="포트폴리오 분석" />
-                <NavItem icon={<Wallet size={18} />} label="자산 등록 및 내역" />
-                <NavItem icon={<Settings size={18} />} label="환경설정" />
+            <nav className="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-1.5">
+                <div className="text-xs font-bold text-muted-foreground uppercase tracking-widest pl-3 mb-2">메뉴</div>
+                <a href="#" className="flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-primary rounded-md font-semibold transition-colors">
+                    <LayoutDashboard size={18} />
+                    <span>대시보드 홈</span>
+                </a>
+                <a href="#" className="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 rounded-md font-medium transition-all">
+                    <PieChart size={18} />
+                    <span>포트폴리오 분석</span>
+                </a>
+                <a href="#" className="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 rounded-md font-medium transition-all">
+                    <Wallet size={18} />
+                    <span>자산 등록</span>
+                </a>
+                <a href="#" className="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 rounded-md font-medium transition-all">
+                    <Settings size={18} />
+                    <span>환경설정</span>
+                </a>
+
+                {/* Category Filter */}
+                <div className="mt-8">
+                    <div className="text-xs font-bold text-muted-foreground uppercase tracking-widest pl-3 mb-3">자산 필터</div>
+                    <div className="flex flex-col gap-0.5">
+                        <FilterItem title="전체 자산" count={24} active />
+
+                        <div className="pl-4 mt-1 flex flex-col gap-0.5 border-l-2 border-slate-100 ml-3">
+                            <FilterItem title="주식 (국내/해외)" count={12} />
+                            <FilterItem title="가상자산" count={3} />
+                            <FilterItem title="현금성 자산" count={2} />
+                            <FilterItem title="연금/펀드" count={5} />
+                            <FilterItem title="부동산/기타" count={2} />
+                        </div>
+                    </div>
+                </div>
             </nav>
 
-            {/* Category Filter (High Density Tree Mock) */}
-            <div className="mt-auto border-t border-border pt-4">
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase mb-3">자산군 필터 (필터링)</h4>
-                <div className="flex flex-col gap-2 text-sm text-foreground">
-                    <label className="flex items-center gap-2 cursor-pointer">
-                        <input type="checkbox" className="rounded border-border" defaultChecked /> 주식 (국내/해외)
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer pl-5 text-muted-foreground">
-                        <input type="checkbox" className="rounded border-border" defaultChecked /> 한국 주식
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer pl-5 text-muted-foreground">
-                        <input type="checkbox" className="rounded border-border" defaultChecked /> 미국 주식
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer mt-1">
-                        <input type="checkbox" className="rounded border-border" defaultChecked /> 가상화폐 (Crypto)
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer mt-1">
-                        <input type="checkbox" className="rounded border-border" defaultChecked /> 퇴직연금 (IRP/ISA)
-                    </label>
+            {/* User Info Bottom */}
+            <div className="p-5 border-t border-border/50 flex items-center gap-3 hover:bg-slate-50 cursor-pointer transition-colors">
+                <div className="w-9 h-9 bg-slate-200 rounded-full flex items-center justify-center font-bold text-slate-600 shadow-inner">
+                    K
+                </div>
+                <div className="flex flex-col">
+                    <span className="text-sm font-semibold text-slate-800">Klcho</span>
+                    <span className="text-xs text-slate-500 font-medium">Free Plan</span>
                 </div>
             </div>
         </aside>
     );
 }
 
-function NavItem({ icon, label, active = false }: { icon: React.ReactNode; label: string; active?: boolean }) {
+function FilterItem({ title, count, active = false }: { title: string, count: number, active?: boolean }) {
     return (
-        <div className={`flex items-center gap-3 px-3 py-2 rounded-md cursor-pointer transition-colors text-sm font-medium
-      ${active ? 'bg-primary/5 text-primary' : 'text-muted-foreground hover:bg-muted hover:text-foreground'}`}
-        >
-            {icon}
-            {label}
-        </div>
+        <button className={`flex justify-between items-center px-3 py-2 rounded-md w-full text-left transition-all ${active ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium'}`}>
+            <span className="text-sm truncate">{title}</span>
+            <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold shadow-sm ${active ? 'bg-white text-slate-800' : 'bg-slate-100 text-slate-500'}`}>{count}</span>
+        </button>
     );
 }
